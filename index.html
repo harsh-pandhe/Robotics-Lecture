@@ -15,7 +15,7 @@
     <style>
         body {
             font-family: 'Urbanist', sans-serif;
-            background-color: #030712;
+            background-color: #020617;
             color: #f3f4f6;
             margin: 0;
             overflow: hidden;
@@ -25,33 +25,47 @@
             font-family: 'Space Mono', monospace;
         }
 
-        .slide-transition {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .slide-enter {
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .code-block {
-            background: #0f172a;
+            background: #000000;
             border: 1px solid #1e293b;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #a3e635, #2dd4bf);
+            background: linear-gradient(90deg, #bef264, #2dd4bf);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        ::-webkit-scrollbar-track {
-            background: #030712;
+        .img-overlay-v {
+            background: linear-gradient(to top, #020617 0%, rgba(2, 6, 23, 0.2) 100%);
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border-radius: 10px;
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.3;
         }
     </style>
 </head>
@@ -66,106 +80,106 @@
             {
                 part: "Part 0: The Origin Story",
                 slides: [
-                    { type: 'title', title: "Part 0: The Origin Story", subtitle: "Understanding the roots of Robot Logic", icon: "fa-history" },
-                    { type: 'theory', title: "The Ancestor: C", content: "Created in 1972 by Dennis Ritchie. C is known as the 'Language of the Metal'. It is blazing fast and efficient. Your drive() function and pin manipulations are pure C-style logic.", bullet: "Why use it? Direct control over memory and hardware registers." },
-                    { type: 'viz', title: "Visualization: The Stack", content: "Imagine C as the foundation of a skyscraper. It sits closest to the hardware (CPU/RAM). High-level languages like Python sit on top, but C carries the load.", img: "fa-layer-group" },
-                    { type: 'example', title: "C-Style Logic", content: "Directly setting a register to HIGH or LOW.", code: "digitalWrite(4, HIGH); // Pure C-style direct command" },
-                    { type: 'theory', title: "The Evolution: C++", content: "Created in 1985 by Bjarne Stroustrup. It takes C and adds 'Classes' and 'Libraries'. It allows us to use advanced features like #include <Wire.h> to talk to complex sensors.", bullet: "C++ = C + Organizations (Classes)" },
-                    { type: 'viz', title: "Visualization: Libraries", content: "C++ allows us to use 'toolboxes' (libraries). Instead of building a motor controller from scratch, we #include a tool that already knows how to do it.", img: "fa-toolbox" },
-                    { type: 'example', title: "C++ Power", content: "Using a library to simplify complex communication.", code: "#include <Wire.h>\n\nvoid setup() {\n  Wire.begin(); // Using a C++ Class library\n}" },
-                    { type: 'theory', title: "Why Robotics?", content: "NASA's Mars Rover, Tesla's Autopilot, and your ESP32 Firefighting bot all rely on C++. It has 'Zero Overhead'—meaning the code doesn't waste even one CPU cycle.", bullet: "Industry Standard for Autonomous Systems." },
-                    { type: 'quiz', title: "Knowledge Check 1", question: "Which language is referred to as the 'Language of the Metal'?", options: ["Python", "C++", "C", "Java"], answer: 2 },
-                    { type: 'quiz', title: "Knowledge Check 2", question: "NASA uses C++ for Mars Rovers because it has...", options: ["Beautiful syntax", "Zero Overhead", "Easy to learn", "Built-in AI"], answer: 1 }
+                    { type: 'title', title: "The Origin Story", subtitle: "Where C Meets Carbon Fiber", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1920" },
+                    { type: 'theory', title: "The Ancestor: C", content: "Created in 1972. It is the raw 'Language of the Metal'. Fast and direct, C is the engine inside every motor driver logic.", bullet: "Why use it? It talks directly to the CPU registers.", img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200" },
+                    { type: 'viz', title: "The Stack of Tech", content: "C sits at the bottom, right on top of the silicon chips. Python and Java are skyscrapers; C is the bedrock.", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200" },
+                    { type: 'example', title: "Pure C Action", content: "Directly flipping a hardware pin state to move a motor.", code: "digitalWrite(4, HIGH); // Pin 4 becomes 3.3V", img: "https://images.unsplash.com/photo-1553406830-ef2513450d76?q=80&w=1200" },
+                    { type: 'theory', title: "The Evolution: C++", content: "Born in 1985. It adds 'Classes'—allowing us to treat a robot arm as a single 'Object' with its own data and skills.", bullet: "C++ = C + Intelligent Organization.", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200" },
+                    { type: 'viz', title: "The Library Concept", content: "C++ gives us libraries like #include <Wire.h>. It's like downloading a manual directly into the robot's brain.", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200" },
+                    { type: 'example', title: "Library Implementation", content: "Using the Wire library to start communication pipelines.", code: "#include <Wire.h>\nWire.begin(21, 22); // Start I2C pins", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=1200" },
+                    { type: 'theory', title: "The Mars Factor", content: "NASA uses C++ for the Mars Rover because it has 'Zero Overhead'. It never wastes energy or CPU time on fluff.", bullet: "Industry Standard for Autonomous Systems.", img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1200" },
+                    { type: 'quiz', title: "Module 0 Quiz", question: "Which language is known as 'Language of the Metal'?", options: ["Python", "C", "C++", "HTML"], answer: 1 },
+                    { type: 'quiz', title: "Module 0 Validation", question: "C++ is chosen for Mars Rovers because it has...", options: ["Beautiful colors", "Zero Overhead speed", "Easy fonts", "Self-healing code"], answer: 1 }
                 ]
             },
             {
                 part: "Part 1: Anatomy of a Program",
                 slides: [
-                    { type: 'title', title: "Part 1: Anatomy", subtitle: "The Boilerplate of a Firefighting Robot", icon: "fa-dna" },
-                    { type: 'theory', title: "The Pin Map (#define)", content: "Before the code starts, we name our pins. Computers love numbers, humans love names. #define turns Pin 21 into 'RELAY_PIN'.", bullet: "Makes code readable and easy to change later." },
-                    { type: 'viz', title: "Visualization: Mapping", content: "Hardware Pin 21 -> Software RELAY_PIN. If you move your wire to Pin 22, you only change one line, not the whole code.", img: "fa-map-signs" },
-                    { type: 'example', title: "The Definition", content: "Telling the compiler what pin goes where.", code: "#define RELAY_PIN 21\n#define FLAME_SENSOR 32" },
-                    { type: 'theory', title: "The Wake-Up (setup)", content: "void setup() runs exactly once when the robot starts. It is used to prepare hardware: defining inputs (sensors) and outputs (motors).", bullet: "pinMode(PIN, OUTPUT) is the core command here." },
-                    { type: 'viz', title: "Visualization: Hardware Init", content: "Think of setup() as a pilot checking his instruments before take-off. Flaps? Check. Engine? Check. Power? Check.", img: "fa-check-double" },
-                    { type: 'example', title: "Setup in Action", content: "Initializing pins and ESP32 specific PWM.", code: "void setup() {\n  pinMode(RELAY_PIN, OUTPUT);\n  ledcSetup(0, 2000, 8); // Preparing motor speed\n}" },
-                    { type: 'theory', title: "The Heartbeat (loop)", content: "void loop() is an infinite cycle. It repeats forever as long as the robot has power. This is where the 'thinking' happens.", bullet: "Checks sensors -> Makes Decision -> Repeats." },
-                    { type: 'quiz', title: "Program Flow Quiz", question: "Which function runs exactly once when the ESP32 starts?", options: ["void loop()", "void start()", "void setup()", "void init()"], answer: 2 },
-                    { type: 'quiz', title: "Definition Quiz", question: "What is the primary benefit of using #define for pins?", options: ["Saves battery", "Makes code faster", "Human readability", "Makes the robot jump"], answer: 2 }
+                    { type: 'title', title: "Program Anatomy", subtitle: "Building the Robot Skeleton", img: "https://images.unsplash.com/photo-1597733336794-12d05021d510?q=80&w=1920" },
+                    { type: 'theory', title: "The Pin Map", content: "We use #define to name pins. Humans like names (ENA), computers like numbers (18). Don't let numbers confuse you.", bullet: "Renaming a pin updates your entire robot instantly.", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200" },
+                    { type: 'viz', title: "Hardware Logic Map", content: "Physical Wire -> ESP32 Pin -> Code Label. This is the nervous system of your bot.", img: "https://images.unsplash.com/photo-1553406830-ef2513450d76?q=80&w=1200" },
+                    { type: 'example', title: "Pin Definition", content: "Defining the Motor Enable pin for speed control.", code: "#define ENA 18\n#define IN1 4", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200" },
+                    { type: 'theory', title: "The Wake-Up (setup)", content: "void setup() runs exactly once. It is the birth of the robot's logic. We define pins as Input (Sensors) or Output (Motors).", bullet: "Like a pilot checking gauges before takeoff.", img: "https://images.unsplash.com/photo-1508674861872-a51e06c50c9b?q=80&w=1200" },
+                    { type: 'viz', title: "Pilot Checklist", content: "Setup initializes I2C, Serial, and Pins. One mistake here means a dead robot.", img: "https://images.unsplash.com/photo-1508674861872-a51e06c50c9b?q=80&w=1200" },
+                    { type: 'example', title: "Setup Example", content: "Setting up a relay output for a fan.", code: "void setup() {\n  pinMode(21, OUTPUT);\n  digitalWrite(21, LOW);\n}", img: "https://images.unsplash.com/photo-1603732551658-5fabbaff8453?q=80&w=1200" },
+                    { type: 'theory', title: "The Heartbeat (loop)", content: "void loop() repeats forever. This is the infinite cycle of Sense -> Decide -> Act. If it stops, the robot dies.", bullet: "The main engine of robot intelligence.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" },
+                    { type: 'quiz', title: "Anatomy Quiz", question: "How many times does void setup() run?", options: ["Twice", "Continuously", "Exactly Once", "Never"], answer: 2 },
+                    { type: 'quiz', title: "Keyword Quiz", question: "Which keyword names a pin permanently?", options: ["void", "int", "#define", "digitalRead"], answer: 2 }
                 ]
             },
             {
                 part: "Part 2: Math & Data",
                 slides: [
-                    { type: 'title', title: "Part 2: Math & Data", subtitle: "How your robot stores intelligence", icon: "fa-microchip" },
-                    { type: 'theory', title: "Whole Numbers (int)", content: "Used for sensor readings that don't need decimals. Your ESP32 analog pins read values from 0 to 4095.", bullet: "s0, s1, s2 are all integers." },
-                    { type: 'viz', title: "Visualization: Integers", content: "Think of an 'int' as a bucket. It can hold any whole number, but if you try to put a decimal in, it spills over.", img: "fa-bucket" },
-                    { type: 'example', title: "Int Code", content: "Reading a flame sensor intensity.", code: "int s0 = analogRead(FL0);\n// Value might be 300 or 1200" },
-                    { type: 'theory', title: "Precision (float)", content: "Essential for PID Control. Balancing or approaching a flame smoothly requires decimal points (1.25, 1.50). Without decimals, movement is jerky.", bullet: "float Kp = 150.0;" },
-                    { type: 'viz', title: "Visualization: Decimals", content: "Imagine trying to balance on a tightrope if you can only move 1 meter left or 1 meter right. You need centimeters (decimals) to survive.", img: "fa-balance-scale" },
-                    { type: 'example', title: "Float Code", content: "Defining PID constants for smoothness.", code: "float Kp = 150.5;\nfloat error = target - current;" },
-                    { type: 'theory', title: "Yes/No (bool)", content: "True or False. Used for simple logic checks. Did I hit a boundary? Is there a flame?", bullet: "bool boundary = true;" },
-                    { type: 'quiz', title: "Data Type Quiz", question: "Which data type would you use to store a sensor reading like 2500?", options: ["float", "bool", "int", "char"], answer: 2 },
-                    { type: 'quiz', title: "Precision Quiz", question: "PID control requires which data type for smooth calculation?", options: ["int", "bool", "long", "float"], answer: 3 }
+                    { type: 'title', title: "Math & Data", subtitle: "Intelligence in Numbers", img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1920" },
+                    { type: 'theory', title: "Whole Numbers (int)", content: "Used for raw sensor data (0-4095). Integers are whole buckets of information. No decimals allowed.", bullet: "Perfect for counting pulses or simple states.", img: "https://images.unsplash.com/photo-1502139214982-d0ad34e7174e?q=80&w=1200" },
+                    { type: 'viz', title: "Data Buckets", content: "Integers are rigid buckets. You can't put half a gallon in a 1-gallon bucket.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200" },
+                    { type: 'example', title: "Int Application", content: "Reading the intensity of a flame sensor.", code: "int s0 = analogRead(32); \n// Result: 1200", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=1200" },
+                    { type: 'theory', title: "Precision (float)", content: "Essential for balancing robots. Decimal precision (1.25, 1.50) is required to stop jerky movement.", bullet: "Floating point = smooth movement.", img: "https://images.unsplash.com/photo-1454165833767-027ffea9e778?q=80&w=1200" },
+                    { type: 'viz', title: "Fine Balancing", content: "Balancing on a needle requires tiny decimals. Integers would make the robot fall.", img: "https://images.unsplash.com/photo-1533228100845-08145b01de14?q=80&w=1200" },
+                    { type: 'example', title: "Float Example", content: "Defining PID coefficients for stability.", code: "float Kp = 150.5;\nfloat error = target - pitch;", img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=1200" },
+                    { type: 'theory', title: "The Truth (bool)", content: "A binary switch. True or False. HIGH or LOW. Did I hit the line? Yes or No.", bullet: "The simplest logic unit.", img: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1200" },
+                    { type: 'quiz', title: "Data Type Quiz", question: "Which type is best for storing a sensor angle of 2.5 degrees?", options: ["int", "float", "bool", "long"], answer: 1 },
+                    { type: 'quiz', title: "Logic Quiz", question: "analogRead() on ESP32 returns which type?", options: ["float", "bool", "int", "char"], answer: 2 }
                 ]
             },
             {
                 part: "Part 3: Control Flow",
                 slides: [
-                    { type: 'title', title: "Part 3: Control Flow", subtitle: "The Decision Maker", icon: "fa-code-branch" },
-                    { type: 'theory', title: "The Decision (if/else)", content: "This is the brain choosing a path. If a flame is detected, approach it; otherwise, roam the arena.", bullet: "The basic structure of autonomous logic." },
-                    { type: 'viz', title: "Visualization: Flowchart", content: "Flame? [YES] -> Approach | [NO] -> Roam. A simple fork in the road.", img: "fa-project-diagram" },
-                    { type: 'example', title: "If/Else Code", content: "Basic behavior switching.", code: "if (flameDetected) {\n  approachFlame();\n} else {\n  roam();\n}" },
-                    { type: 'theory', title: "Comparison Operators", content: "> (Greater than), < (Less than), || (OR). Used to check sensor thresholds. || checks if ANY IR sensor hits a line.", bullet: "total > flameThreshold * 5" },
-                    { type: 'viz', title: "Visualization: Sensors", content: "Imagine your robot has 4 eyes looking at the ground. If Eye 1 OR Eye 2 OR Eye 3 sees a line, the whole robot stops.", img: "fa-eye" },
-                    { type: 'example', title: "Boundary Logic", content: "Checking multiple inputs at once.", code: "return (digitalRead(IR_FL) == HIGH || \n        digitalRead(IR_FR) == HIGH);" },
-                    { type: 'theory', title: "Constraints", content: "The constrain() function keeps motor speeds safe. It ensures values stay between -255 and 255 so the ESP32 doesn't crash.", bullet: "int corr = constrain(correction, -150, 150);" },
-                    { type: 'quiz', title: "Logic Quiz", question: "What symbol is used for a logical 'OR'?", options: ["&&", "==", "||", "!="], answer: 2 },
-                    { type: 'quiz', title: "Safety Quiz", question: "What does the constrain() function do?", options: ["Makes the robot faster", "Keeps values in a specific range", "Turns the fans on", "Clears the memory"], answer: 1 }
+                    { type: 'title', title: "Control Flow", subtitle: "Autonomous Decisions", img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=1920" },
+                    { type: 'theory', title: "The Choice (if/else)", content: "The robot's fork in the road. If danger exists, spray; otherwise, keep moving.", bullet: "Logic defines behavior.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" },
+                    { type: 'viz', title: "Decision Paths", content: "Visualization of logic branching based on sensor input.", img: "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?q=80&w=1200" },
+                    { type: 'example', title: "If/Else Example", content: "Basic Firefighting logic.", code: "if (flame) approach();\nelse roam();", img: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=1200" },
+                    { type: 'theory', title: "Logical OR (||)", content: "Checking if ANY sensor is triggered. If Left OR Right hits a boundary, stop immediately.", bullet: "Safety through multiple redundancy.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200" },
+                    { type: 'viz', title: "The Perimeter", content: "Robot with 4 IR sensors. Any one sensor detects a line = Trigger Stop.", img: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=1200" },
+                    { type: 'example', title: "OR Logic", content: "Combining boundary sensor inputs.", code: "if (s1 == 1 || s2 == 1) stop();", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200" },
+                    { type: 'theory', title: "Safety Limits (constrain)", content: "Ensures motor speed never goes out of bounds (0-255). Stops math from crashing hardware.", bullet: "Protective guardrails for code.", img: "https://images.unsplash.com/photo-1593344484962-796055d4a3a4?q=80&w=1200" },
+                    { type: 'quiz', title: "Logic Check", question: "What does '||' represent in code?", options: ["AND", "OR", "EQUALS", "ADD"], answer: 1 },
+                    { type: 'quiz', title: "Safety Quiz", question: "What does constrain(300, 0, 255) return?", options: ["300", "0", "255", "Error"], answer: 2 }
                 ]
             },
             {
-                part: "Part 4: Advanced Logic",
+                part: "Part 4: Advanced PID",
                 slides: [
-                    { type: 'title', title: "Part 4: Advanced PID", subtitle: "The Math of Perfect Movement", icon: "fa-square-root-variable" },
-                    { type: 'theory', title: "Direction Calculation", content: "Your code finds the flame by 'weighting' sensors. FL0 is -2, FL4 is 2. This creates a direction 'score' to follow.", bullet: "Weighting allows the robot to know WHICH way to turn." },
-                    { type: 'viz', title: "Visualization: Weighing", content: "Think of a see-saw. If the flame is more on the left sensors, the see-saw tips left. The robot turns to balance it.", img: "fa-weight-hanging" },
-                    { type: 'example', title: "Direction Score", content: "Calculating the target angle.", code: "float direction = (s0*-2 + s1*-1 + s2*0 + s3*1 + s4*2) / total;" },
-                    { type: 'theory', title: "PID: P and I", content: "Kp (Proportional) reacts to the PRESENT error. Ki (Integral) looks at PAST drifting errors to keep you on a straight line.", bullet: "Kp = Fast response. Ki = Precision correction." },
-                    { type: 'viz', title: "Visualization: Driving", content: "Kp is like steering immediately when you see a curve. Ki is like noticing you keep pulling to the left and adjusting for it.", img: "fa-car" },
-                    { type: 'example', title: "Integral Logic", content: "Accumulating error over time.", code: "integral += direction * dt;" },
-                    { type: 'theory', title: "PID: D (Derivative)", content: "Kd predicts the FUTURE. It slows down the robot's turn before it reaches the target so it doesn't 'wobble' back and forth.", bullet: "Prevents overshoot and oscillations." },
-                    { type: 'quiz', title: "PID Quiz 1", question: "Which PID part reacts to the PRESENT error?", options: ["Kp", "Ki", "Kd", "dt"], answer: 0 },
-                    { type: 'quiz', title: "PID Quiz 2", question: "If a robot wobbles back and forth, which value needs tuning?", options: ["Integral", "Pin Map", "Kd (Derivative)", "int speed"], answer: 2 }
+                    { type: 'title', title: "Advanced PID", subtitle: "Math of Perfect Stability", img: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1920" },
+                    { type: 'theory', title: "Weighting Sensors", content: "Directional score. Sensors on far left are -2, center is 0, far right is 2. The robot steers toward the average.", bullet: "Mathematical target acquisition.", img: "https://images.unsplash.com/photo-1533228100845-08145b01de14?q=80&w=1200" },
+                    { type: 'viz', title: "See-Saw Balance", content: "Visualizing sensor weighting like a balancing scale.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" },
+                    { type: 'example', title: "Weighting Code", content: "Calculating directional error.", code: "float dir = (s0*-2 + s4*2) / total;", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200" },
+                    { type: 'theory', title: "PID Components", content: "P (Present) pushes now. I (Past) corrects old drift. D (Future) slows down turns.", bullet: "The holy trinity of robot stability.", img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200" },
+                    { type: 'viz', title: "Corrective Path", content: "Visualizing a robot smoothing out its oscillations.", img: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1200" },
+                    { type: 'example', title: "PID Code", content: "The full correction formula.", code: "output = Kp*e + Ki*i + Kd*d;", img: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=1200" },
+                    { type: 'theory', title: "Anti-Shaking (Kd)", content: "The Derivative (Kd) stops the 'Death Wobble'. It acts as a friction that brakes right before the target.", bullet: "Predictive braking system.", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200" },
+                    { type: 'quiz', title: "PID Mastery", question: "Which PID part reacts to the PAST error?", options: ["Kp", "Ki", "Kd", "dt"], answer: 1 },
+                    { type: 'quiz', title: "Wobble Quiz", question: "If the robot shakes, which value is likely too high?", options: ["Kp", "Semicolon", "Wire.h", "int"], answer: 0 }
                 ]
             },
             {
                 part: "Part 5: Actuators",
                 slides: [
-                    { type: 'title', title: "Part 5: Actuators", subtitle: "Turning Code into Muscle", icon: "fa-gears" },
-                    { type: 'theory', title: "Digital Control (Fan)", content: "digitalWrite(PIN, HIGH) turns the relay ON. The relay acts as a giant electronic switch to power the high-power fan.", bullet: "Relay = Digital Switch." },
-                    { type: 'viz', title: "Visualization: The Relay", content: "Like a light switch in your house. It's either fully ON or fully OFF. No in-between speeds for the fan.", img: "fa-toggle-on" },
-                    { type: 'example', title: "Blowing Fan", content: "Turning the fan relay on.", code: "digitalWrite(RELAY_PIN, HIGH);" },
-                    { type: 'theory', title: "PWM (ESP32 Specific)", content: "In ESP32, we use ledcWrite instead of analogWrite. This creates a 'Pulse' that mimics lower voltage to control motor speed.", bullet: "Speed range: 0 to 255." },
-                    { type: 'viz', title: "Visualization: PWM", content: "Imagine clicking a flashlight on and off very fast. If it's on 50% of the time, it looks half-bright. That's how we slow down motors.", img: "fa-bolt" },
-                    { type: 'example', title: "Motor Speed", code: "ledcWrite(0, speed); // Channel 0, speed 0-255" },
-                    { type: 'theory', title: "Modular Code (drive)", content: "Your drive(left, right) function is 'Modular Programming'. You write complex H-Bridge logic once, then call it with simple numbers.", bullet: "Efficiency: Don't repeat yourself (DRY)." },
-                    { type: 'quiz', title: "Actuator Quiz 1", question: "What is the range of values for ledcWrite speed on the ESP32?", options: ["0 to 100", "0 to 1024", "0 to 255", "-255 to 255"], answer: 2 },
-                    { type: 'quiz', title: "Modular Quiz", question: "Why do we use custom functions like drive()?", options: ["To make the robot heavier", "To avoid repeating code", "To slow down the CPU", "To use more pins"], answer: 1 }
+                    { type: 'title', title: "Actuators", subtitle: "Code to Physical Muscle", img: "https://images.unsplash.com/photo-1563911302283-d2bc129e7570?q=80&w=1920" },
+                    { type: 'theory', title: "Digital Relays", content: "The Relay is a light switch. ON or OFF. High power fans are controlled by low power code pins.", bullet: "Electronic heavy-duty switching.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?q=80&w=1200" },
+                    { type: 'viz', title: "Switch Hub", content: "Low voltage signal triggering high voltage power.", img: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1200" },
+                    { type: 'example', title: "Relay Code", content: "Switching the fan relay.", code: "digitalWrite(RELAY, HIGH);", img: "https://images.unsplash.com/photo-1563911302283-d2bc129e7570?q=80&w=1200" },
+                    { type: 'theory', title: "PWM (Speed)", content: "Flickering power very fast. If ON 50% of the time, speed is 50%. This is how we control DC motors.", bullet: "Pulse Width Modulation (0-255).", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200" },
+                    { type: 'viz', title: "Duty Cycle", content: "Visualizing the 'Pulse' of power.", img: "https://images.unsplash.com/photo-1551029506-0807df4e2031?q=80&w=1200" },
+                    { type: 'example', title: "PWM Code", content: "Setting ESP32 motor speed.", code: "ledcWrite(0, 150);", img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200" },
+                    { type: 'theory', title: "State Machine Logic", content: "Picker Bot uses States. LINE_FOLLOW -> COLOR_CHECK -> GRAB. Keeps the robot organized.", bullet: "Managing complex behaviors.", img: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?q=80&w=1200" },
+                    { type: 'quiz', title: "Actuator Quiz", question: "Max value for ledcWrite speed?", options: ["100", "255", "1024", "4095"], answer: 1 },
+                    { type: 'quiz', title: "Method Quiz", question: "Keyword to move a servo to an angle?", options: ["write", "move", "go", "angle"], answer: 0 }
                 ]
             },
             {
-                part: "Bug List & Cheat Sheet",
+                part: "Final: The Bug List",
                 slides: [
-                    { type: 'title', title: "Final: Pro Tips", subtitle: "Common Bugs & Shortcuts", icon: "fa-bug" },
-                    { type: 'theory', title: "The Semicolon (;)", content: "In C++, every instruction MUST end with a semicolon. Forgetting this is the #1 reason for 'Compilation Failed'.", bullet: "Like a full stop at the end of a sentence." },
-                    { type: 'example', title: "Missing Semicolon", code: "int speed = 100 // ERROR!\nint speed = 100; // FIXED!" },
-                    { type: 'theory', title: "= vs ==", content: "x = 5 means 'Put 5 into x'. x == 5 means 'Is x equal to 5?'. Using '=' inside an 'if' will set the value instead of checking it!", bullet: "Classic Robot Killer bug." },
-                    { type: 'viz', title: "Visualization: Logic Error", content: "if(target = 5) will ALWAYS be true because 5 is a valid number. It will never check the actual sensor!", img: "fa-exclamation-triangle" },
-                    { type: 'theory', title: "Blocking Code (delay)", content: "While delay(4000) is running, the robot is BLIND. It cannot check for boundaries or sensors. It just waits.", bullet: "Use millis() for non-blocking timing." },
-                    { type: 'example', title: "Non-Blocking Time", code: "unsigned long now = millis();\n// This doesn't stop the robot!" },
-                    { type: 'theory', title: "Case Sensitivity", content: "In C++, RELAY_PIN and relay_pin are completely different variables. Be consistent with your naming!", bullet: "Spelling matters." },
-                    { type: 'quiz', title: "Bug Quiz 1", question: "What happens if you use '=' instead of '==' in an 'if' statement?", options: ["Code won't compile", "It always checks correctly", "It sets the value and logic fails", "The robot explodes"], answer: 2 },
-                    { type: 'quiz', title: "Bug Quiz 2", question: "Why is delay(4000) dangerous for a moving robot?", options: ["Saves too much battery", "Robot is 'blind' and can't check sensors", "Makes motors too hot", "Semicolons are required"], answer: 1 }
+                    { type: 'title', title: "Pro Bug List", subtitle: "Debugging Like a Senior Engineer", img: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=1920" },
+                    { type: 'theory', title: "The Semicolon (;)", content: "Forgetting the ; is the #1 robot killer. It stops the computer from knowing a command ended.", bullet: "The full-stop of the coding world.", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200" },
+                    { type: 'example', title: "Syntax Error", content: "A common semicolon fail.", code: "int speed = 100 // Error!", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200" },
+                    { type: 'theory', title: "= vs ==", content: "One '=' sets a value. Two '==' checks a value. Using '=' in an 'if' will always be true!", bullet: "Logic killer bug.", img: "https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=1200" },
+                    { type: 'viz', title: "Check vs Set", content: "Visualization of the logic trap.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200" },
+                    { type: 'theory', title: "Blocking delay()", content: "While delay(4000) runs, the robot is BLIND. It won't see boundaries or fire. Use with caution!", bullet: "Non-responsive code pauses.", img: "https://images.unsplash.com/photo-1508674861872-a51e06c50c9b?q=80&w=1200" },
+                    { type: 'example', title: "Delay Trap", content: "The robot ignores sensors here.", code: "blowFan(); delay(4000);", img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=1200" },
+                    { type: 'theory', title: "Case Sensitivity", content: "RELAY is not the same as relay. C++ is case-sensitive. Consistency is key.", bullet: "Spelling and casing matter.", img: "https://images.unsplash.com/photo-1553406830-ef2513450d76?q=80&w=1200" },
+                    { type: 'quiz', title: "Bug Quiz 1", question: "Which symbol checks for equality?", options: ["=", "==", ":=", "->"], answer: 1 },
+                    { type: 'quiz', title: "Safety Final", question: "Why is delay(4000) risky during movement?", options: ["Uses too much RAM", "Robot is blind to sensors", "Semicolons required", "Motors get too hot"], answer: 1 }
                 ]
             }
         ];
@@ -215,35 +229,37 @@
 
             if (selectedPart === null) {
                 return (
-                    <div className="min-h-screen p-12 max-w-6xl mx-auto flex flex-col items-center justify-center space-y-8 animate-fade-in">
-                        <header className="text-center space-y-2">
-                            <h1 className="text-6xl font-bold tracking-tighter">
+                    <div className="min-h-screen p-12 max-w-6xl mx-auto flex flex-col items-center justify-center space-y-16 animate-fade-in relative">
+                        <div className="fixed inset-0 z-[-1] opacity-40 grayscale-[0.5]">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1920" className="w-full h-full object-cover" />
+                        </div>
+
+                        <header className="text-center space-y-6">
+                            <h1 className="text-8xl font-bold tracking-tighter">
                                 <span className="gradient-text">Kalpataru 2026</span>
                             </h1>
-                            <p className="text-slate-400 text-xl font-light uppercase tracking-[0.3em]">Master Programming Interface</p>
+                            <p className="text-slate-400 text-3xl font-light uppercase tracking-[0.4em]">Master Programming Interface</p>
                         </header>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
                             {SLIDE_DATA.map((item, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => { setSelectedPart(idx); setSlideIndex(0); }}
-                                    className="group relative p-8 bg-slate-900 border border-slate-800 rounded-3xl text-left hover:border-lime-400/50 transition-all duration-300 hover:scale-[1.02] shadow-2xl overflow-hidden"
+                                    className="group relative p-12 bg-slate-900/60 border border-slate-700 rounded-[3rem] text-left hover:border-lime-400/50 transition-all duration-700 hover:scale-[1.05] shadow-2xl overflow-hidden h-[340px] flex flex-col justify-end backdrop-blur-xl"
                                 >
-                                    <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                        <i className={`fas ${item.slides[0].icon} text-9xl`}></i>
-                                    </div>
-                                    <span className="text-lime-400 font-mono text-xs block mb-2 uppercase tracking-widest">Module {idx}</span>
-                                    <h3 className="text-2xl font-bold text-white mb-4">{item.part}</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">
-                                        Explaining theory, visualizations, and examples for {item.part.split(':')[1]}.
-                                    </p>
-                                    <div className="mt-6 flex items-center text-lime-400 text-xs font-bold uppercase tracking-widest">
-                                        Start Learning <i className="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                                    <img src={item.slides[0].img} className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-all duration-1000 object-cover w-full h-full scale-110 group-hover:scale-100" />
+                                    <div className="relative z-10 space-y-4">
+                                        <span className="text-lime-400 font-mono text-sm block uppercase tracking-widest">Module {idx}</span>
+                                        <h3 className="text-4xl font-bold text-white leading-tight">{item.part}</h3>
+                                        <div className="pt-4 flex items-center text-lime-400 text-sm font-bold uppercase tracking-[0.2em]">
+                                            Open Sequence <i className="fas fa-arrow-right ml-4 group-hover:translate-x-3 transition-transform"></i>
+                                        </div>
                                     </div>
                                 </button>
                             ))}
                         </div>
+                        <footer className="text-slate-500 font-mono text-sm uppercase tracking-[0.5em] pt-12">Harsh Pandhe // 2026</footer>
                     </div>
                 );
             }
@@ -251,158 +267,167 @@
             const currentSlide = activeSlides[slideIndex];
 
             return (
-                <div className="min-h-screen flex flex-col bg-slate-950">
-                    {/* Navigation Bar */}
-                    <nav className="p-6 border-b border-slate-900 flex justify-between items-center bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
-                        <div className="flex items-center gap-4">
-                            <button onClick={() => setSelectedPart(null)} className="p-2 hover:bg-slate-900 rounded-full transition-colors text-slate-400 hover:text-white">
-                                <i className="fas fa-chevron-left text-xl"></i>
+                <div className="min-h-screen flex flex-col bg-slate-950 relative">
+                    <nav className="p-8 border-b border-white/5 flex justify-between items-center bg-black/50 backdrop-blur-3xl sticky top-0 z-50">
+                        <div className="flex items-center gap-8">
+                            <button onClick={() => setSelectedPart(null)} className="p-4 hover:bg-slate-900 rounded-[1.5rem] transition-all text-slate-400 hover:text-white border border-white/5">
+                                <i className="fas fa-th-large text-2xl"></i>
                             </button>
-                            <h2 className="font-bold text-lg">
-                                <span className="text-lime-400 mr-2">{SLIDE_DATA[selectedPart].part.split(':')[0]}</span>
-                                <span className="text-slate-400">{SLIDE_DATA[selectedPart].part.split(':')[1]}</span>
-                            </h2>
+                            <div>
+                                <h2 className="font-bold text-2xl flex items-center gap-4">
+                                    <span className="text-lime-400 tracking-tighter">{SLIDE_DATA[selectedPart].part.split(':')[0]}</span>
+                                    <span className="w-2 h-2 rounded-full bg-slate-700" />
+                                    <span className="text-slate-400 font-light">{SLIDE_DATA[selectedPart].part.split(':')[1]}</span>
+                                </h2>
+                            </div>
                         </div>
-                        <div className="flex gap-1">
+                        <div className="flex gap-3">
                             {activeSlides.map((_, idx) => (
-                                <div key={idx} className={`h-1.5 rounded-full transition-all duration-500 ${idx === slideIndex ? 'bg-lime-400 w-8' : idx < slideIndex ? 'bg-lime-900 w-4' : 'bg-slate-800 w-4'}`} />
+                                <div key={idx} className={`h-2 rounded-full transition-all duration-700 ${idx === slideIndex ? 'bg-lime-400 w-16 shadow-[0_0_15px_rgba(163,230,53,0.5)]' : idx < slideIndex ? 'bg-lime-900 w-6' : 'bg-slate-800 w-6'}`} />
                             ))}
                         </div>
                     </nav>
 
-                    {/* Slide Container */}
-                    <div className="flex-1 relative flex items-center justify-center p-8 overflow-hidden">
-                        <div className="w-full max-w-6xl h-full slide-transition flex flex-col justify-center">
+                    <div className="flex-1 relative flex items-center justify-center overflow-hidden">
 
-                            {/* Slide Content Types */}
-                            {currentSlide.type === 'title' && (
-                                <div className="text-center space-y-8">
-                                    <div className="inline-block p-6 rounded-full bg-lime-400/10 text-lime-400 mb-4 animate-bounce">
-                                        <i className={`fas ${currentSlide.icon} text-6xl`}></i>
+                        {currentSlide.type === 'title' && (
+                            <div key={`title-${slideIndex}`} className="w-full h-full flex flex-col items-center justify-center relative p-16 slide-enter">
+                                <img src={currentSlide.img} className="absolute inset-0 w-full h-full object-cover opacity-25" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-transparent to-slate-950" />
+                                <div className="relative text-center space-y-12 max-w-6xl">
+                                    <div className="inline-flex p-10 rounded-[3rem] bg-lime-400/10 text-lime-400 mb-8 border border-lime-400/20 shadow-[0_0_80px_rgba(163,230,53,0.15)] animate-pulse">
+                                        <i className="fas fa-robot text-8xl"></i>
                                     </div>
-                                    <h1 className="text-8xl font-black text-white leading-tight">{currentSlide.title}</h1>
-                                    <p className="text-3xl text-slate-400 font-light">{currentSlide.subtitle}</p>
+                                    <h1 className="text-9xl md:text-[10rem] font-black text-white leading-none uppercase tracking-tighter drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">{currentSlide.title}</h1>
+                                    <p className="text-5xl text-slate-400 font-light italic tracking-tight opacity-80">{currentSlide.subtitle}</p>
                                 </div>
-                            )}
+                            </div>
+                        )}
 
-                            {currentSlide.type === 'theory' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                                    <div className="space-y-6">
-                                        <span className="px-4 py-1.5 bg-lime-400/10 text-lime-400 rounded-full text-xs font-bold uppercase tracking-widest border border-lime-400/20">The Theory</span>
-                                        <h2 className="text-6xl font-bold">{currentSlide.title}</h2>
-                                        <p className="text-xl text-slate-300 leading-relaxed">{currentSlide.content}</p>
-                                        <div className="flex items-start gap-4 p-6 bg-slate-900/50 rounded-2xl border-l-4 border-lime-400">
-                                            <i className="fas fa-lightbulb text-lime-400 mt-1"></i>
-                                            <p className="text-slate-400 italic text-lg">{currentSlide.bullet}</p>
+                        {currentSlide.type === 'theory' && (
+                            <div key={`theory-${slideIndex}`} className="w-full h-full grid grid-cols-1 lg:grid-cols-2 slide-enter">
+                                <div className="p-16 lg:p-32 flex flex-col justify-center space-y-12 bg-slate-950 z-10 border-r border-white/5 relative">
+                                    <div className="space-y-8">
+                                        <span className="px-6 py-2 bg-lime-400/10 text-lime-400 rounded-2xl text-base font-bold uppercase tracking-[0.3em] border border-lime-400/20">Conceptual Core</span>
+                                        <h2 className="text-8xl font-black leading-[1.0] text-white tracking-tighter uppercase">{currentSlide.title}</h2>
+                                    </div>
+                                    <p className="text-3xl text-slate-400 leading-relaxed font-light">{currentSlide.content}</p>
+                                    <div className="p-10 glass-card rounded-[3rem] border-l-[16px] border-lime-400 flex gap-10 items-center shadow-2xl">
+                                        <div className="w-20 h-20 shrink-0 bg-lime-400 rounded-3xl text-black flex items-center justify-center text-3xl shadow-xl">
+                                            <i className="fas fa-bolt"></i>
                                         </div>
-                                    </div>
-                                    <div className="hidden md:flex justify-center">
-                                        <i className="fas fa-book-open text-[12rem] text-slate-900 animate-pulse"></i>
-                                    </div>
-                                </div>
-                            )}
-
-                            {currentSlide.type === 'viz' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                                    <div className="order-2 md:order-1 flex justify-center items-center h-full">
-                                        <div className="relative group">
-                                            <div className="absolute inset-0 bg-lime-400/20 blur-[100px] rounded-full group-hover:bg-lime-400/40 transition-all duration-500"></div>
-                                            <i className={`fas ${currentSlide.img} text-[15rem] relative text-white drop-shadow-2xl`}></i>
-                                        </div>
-                                    </div>
-                                    <div className="order-1 md:order-2 space-y-6">
-                                        <span className="px-4 py-1.5 bg-cyan-400/10 text-cyan-400 rounded-full text-xs font-bold uppercase tracking-widest border border-cyan-400/20">Visualization</span>
-                                        <h2 className="text-6xl font-bold">{currentSlide.title}</h2>
-                                        <p className="text-2xl text-slate-300 font-light leading-relaxed">{currentSlide.content}</p>
+                                        <p className="text-3xl text-slate-100 font-medium italic leading-tight">{currentSlide.bullet}</p>
                                     </div>
                                 </div>
-                            )}
+                                <div className="relative overflow-hidden group hidden lg:block">
+                                    <img src={currentSlide.img} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[15s] group-hover:scale-110" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/20 to-transparent" />
+                                </div>
+                            </div>
+                        )}
 
-                            {currentSlide.type === 'example' && (
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                                    <div className="space-y-6">
-                                        <span className="px-4 py-1.5 bg-amber-400/10 text-amber-400 rounded-full text-xs font-bold uppercase tracking-widest border border-amber-400/20">Code Example</span>
-                                        <h2 className="text-6xl font-bold">{currentSlide.title}</h2>
-                                        <p className="text-xl text-slate-300">{currentSlide.content}</p>
+                        {currentSlide.type === 'viz' && (
+                            <div key={`viz-${slideIndex}`} className="w-full h-full flex flex-col slide-enter">
+                                <div className="flex-1 relative overflow-hidden">
+                                    <img src={currentSlide.img} className="absolute inset-0 w-full h-full object-cover scale-105" />
+                                    <div className="absolute inset-0 img-overlay-v bg-slate-950/40" />
+                                    <div className="absolute bottom-0 left-0 p-16 lg:p-32 max-w-7xl space-y-10">
+                                        <span className="px-6 py-2 bg-cyan-400/10 text-cyan-400 rounded-2xl text-base font-bold uppercase tracking-[0.3em] border border-cyan-400/20 shadow-lg">Visualization Logic</span>
+                                        <h2 className="text-[9rem] font-black text-white leading-none uppercase tracking-tighter drop-shadow-[0_15px_15px_rgba(0,0,0,0.8)]">{currentSlide.title}</h2>
+                                        <p className="text-5xl text-slate-100 font-light drop-shadow-2xl max-w-5xl leading-tight">{currentSlide.content}</p>
                                     </div>
-                                    <div className="code-block rounded-3xl p-8 relative overflow-hidden group">
-                                        <div className="absolute top-4 right-6 flex gap-1.5">
-                                            <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
-                                            <div className="w-3 h-3 rounded-full bg-amber-500/50"></div>
-                                            <div className="w-3 h-3 rounded-full bg-emerald-500/50"></div>
+                                </div>
+                            </div>
+                        )}
+
+                        {currentSlide.type === 'example' && (
+                            <div key={`example-${slideIndex}`} className="w-full h-full grid grid-cols-1 lg:grid-cols-5 slide-enter">
+                                <div className="lg:col-span-2 p-16 lg:p-32 flex flex-col justify-center space-y-12 bg-slate-950 border-r border-white/5 relative">
+                                    <img src={currentSlide.img} className="absolute inset-0 opacity-[0.05] object-cover w-full h-full grayscale" />
+                                    <div className="relative space-y-10">
+                                        <span className="px-6 py-2 bg-amber-400/10 text-amber-400 rounded-2xl text-base font-bold uppercase tracking-[0.3em] border border-amber-400/20 shadow-lg">Logic Synthesis</span>
+                                        <h2 className="text-7xl font-bold leading-tight text-white uppercase tracking-tight">{currentSlide.title}</h2>
+                                        <p className="text-3xl text-slate-400 leading-relaxed font-light">{currentSlide.content}</p>
+                                    </div>
+                                </div>
+                                <div className="lg:col-span-3 p-16 lg:p-32 flex items-center justify-center bg-black/60 relative">
+                                    <div className="w-full max-w-4xl code-block rounded-[4rem] p-20 relative overflow-hidden shadow-[0_0_120px_rgba(16,185,129,0.15)]">
+                                        <div className="absolute top-10 left-12 flex gap-3">
+                                            <div className="w-5 h-5 rounded-full bg-red-500/30"></div>
+                                            <div className="w-5 h-5 rounded-full bg-amber-500/30"></div>
+                                            <div className="w-5 h-5 rounded-full bg-emerald-500/30"></div>
                                         </div>
-                                        <pre className="font-mono text-xl text-emerald-300 leading-relaxed">
+                                        <pre className="font-mono text-4xl text-emerald-400 leading-relaxed mt-12 overflow-x-auto">
                                             {currentSlide.code}
                                         </pre>
-                                        <div className="absolute bottom-4 right-4 text-slate-700 font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest">C++ Source</div>
+                                        <div className="absolute top-10 right-12 text-slate-800 font-mono text-sm uppercase tracking-[0.4em]">Autonomous.h</div>
                                     </div>
                                 </div>
-                            )}
+                            </div>
+                        )}
 
-                            {currentSlide.type === 'quiz' && (
-                                <div className="max-w-3xl mx-auto w-full space-y-8">
-                                    <div className="text-center space-y-4">
-                                        <span className="px-4 py-1.5 bg-rose-400/10 text-rose-400 rounded-full text-xs font-bold uppercase tracking-widest border border-rose-400/20">Knowledge Check</span>
-                                        <h2 className="text-4xl font-bold">{currentSlide.question}</h2>
+                        {currentSlide.type === 'quiz' && (
+                            <div key={`quiz-${slideIndex}`} className="w-full h-full flex items-center justify-center p-16 bg-slate-950 relative overflow-hidden slide-enter">
+                                <div className="absolute inset-0 opacity-[0.15] scale-110">
+                                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1920" className="w-full h-full object-cover" />
+                                </div>
+                                <div className="relative w-full max-w-6xl glass-card p-24 rounded-[5rem] space-y-20 shadow-3xl">
+                                    <div className="text-center space-y-10">
+                                        <span className="px-10 py-4 bg-rose-400/10 text-rose-400 rounded-3xl text-lg font-bold uppercase tracking-[0.4em] border border-rose-400/20 shadow-xl">Critical System Validation</span>
+                                        <h2 className="text-7xl font-black leading-none tracking-tighter text-white uppercase">{currentSlide.question}</h2>
                                     </div>
-                                    <div className="grid grid-cols-1 gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         {currentSlide.options.map((opt, oIdx) => (
                                             <button
                                                 key={oIdx}
                                                 onClick={() => handleQuiz(oIdx, currentSlide.answer)}
-                                                className={`p-6 text-left text-lg rounded-2xl border transition-all duration-300 active:scale-[0.98] ${quizResult === 'correct' && oIdx === currentSlide.answer
-                                                        ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)]'
+                                                className={`p-12 text-left text-3xl rounded-[3rem] border-2 transition-all duration-500 active:scale-[0.97] ${quizResult === 'correct' && oIdx === currentSlide.answer
+                                                        ? 'bg-emerald-500/30 border-emerald-500 text-emerald-300 shadow-[0_0_80px_rgba(16,185,129,0.4)] z-10'
                                                         : quizResult === 'wrong' && oIdx !== currentSlide.answer
-                                                            ? 'bg-slate-900 border-slate-800 text-slate-500 opacity-50'
-                                                            : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-500 hover:bg-slate-800'
+                                                            ? 'bg-slate-950 border-white/5 text-slate-800 opacity-30 grayscale blur-[2px]'
+                                                            : 'bg-white/5 border-white/10 text-slate-300 hover:border-white/50 hover:bg-white/10'
                                                     }`}
                                             >
-                                                <div className="flex items-center gap-4">
-                                                    <span className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-500">{String.fromCharCode(65 + oIdx)}</span>
-                                                    {opt}
-                                                    {quizResult === 'correct' && oIdx === currentSlide.answer && <i className="fas fa-check-circle ml-auto"></i>}
+                                                <div className="flex items-center gap-10">
+                                                    <span className="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center text-lg font-bold text-slate-500 font-mono shadow-inner border border-white/5">{String.fromCharCode(65 + oIdx)}</span>
+                                                    <span className="flex-1 font-medium">{opt}</span>
+                                                    {quizResult === 'correct' && oIdx === currentSlide.answer && <i className="fas fa-shield-check text-5xl text-emerald-400 drop-shadow-xl"></i>}
                                                 </div>
                                             </button>
                                         ))}
                                     </div>
                                     {quizResult === 'correct' && (
-                                        <div className="text-center animate-bounce text-emerald-400 font-bold text-xl">
-                                            Excellent! Keep moving forward.
-                                        </div>
-                                    )}
-                                    {quizResult === 'wrong' && (
-                                        <div className="text-center text-rose-400 font-medium">
-                                            Not quite! Try again or look back at the theory.
+                                        <div className="text-center animate-bounce text-emerald-400 font-black text-4xl tracking-[0.3em] uppercase">
+                                            Logic Finalized
                                         </div>
                                     )}
                                 </div>
-                            )}
+                            </div>
+                        )}
 
-                        </div>
                     </div>
 
-                    {/* Controls Footer */}
-                    <div className="p-10 flex justify-between items-center bg-slate-950/80 backdrop-blur-sm">
-                        <div className="text-slate-500 text-sm font-mono tracking-widest uppercase">
-                            Part {selectedPart} // Slide {slideIndex + 1} of {activeSlides.length}
+                    <footer className="p-12 border-t border-white/5 flex justify-between items-center bg-black/80 backdrop-blur-2xl">
+                        <div className="text-slate-600 text-lg font-mono tracking-[0.4em] uppercase">
+                            Part {selectedPart} // Sequence {slideIndex + 1} of {activeSlides.length}
                         </div>
-                        <div className="flex gap-4">
+                        <div className="flex gap-8">
                             <button
                                 onClick={prevSlide}
                                 disabled={slideIndex === 0}
-                                className={`px-8 py-3 rounded-full font-bold transition-all flex items-center gap-2 ${slideIndex === 0 ? 'opacity-20 cursor-not-allowed' : 'bg-slate-900 hover:bg-slate-800 text-white border border-slate-700'}`}
+                                className={`px-16 py-6 rounded-[2rem] font-black transition-all flex items-center gap-5 text-xl ${slideIndex === 0 ? 'opacity-10' : 'bg-slate-900 hover:bg-slate-800 text-white border border-white/10 shadow-xl'}`}
                             >
-                                <i className="fas fa-arrow-left"></i> Previous
+                                <i className="fas fa-chevron-left"></i> BACK
                             </button>
                             <button
                                 onClick={nextSlide}
                                 disabled={slideIndex === activeSlides.length - 1}
-                                className={`px-8 py-3 rounded-full font-bold transition-all flex items-center gap-2 ${slideIndex === activeSlides.length - 1 ? 'opacity-20 cursor-not-allowed' : 'bg-lime-400 hover:bg-lime-300 text-black shadow-lg shadow-lime-400/20'}`}
+                                className={`px-16 py-6 rounded-[2rem] font-black transition-all flex items-center gap-5 text-xl ${slideIndex === activeSlides.length - 1 ? 'opacity-10' : 'bg-lime-400 hover:bg-lime-300 text-black shadow-[0_15px_40px_rgba(163,230,53,0.4)]'}`}
                             >
-                                Next <i className="fas fa-arrow-right"></i>
+                                CONTINUE <i className="fas fa-chevron-right"></i>
                             </button>
                         </div>
-                    </div>
+                    </footer>
                 </div>
             );
         }
